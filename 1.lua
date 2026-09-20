@@ -79,7 +79,7 @@ function BRPlayerCharacterBase:ReceiveBeginPlay()
       AttrName = {
         "bCanSelfRescue"
       }
-    }, self.CharacterAttrChangeEvent, self)
+    }, self.CharactWhiteRavenModsttrChangeEvent, self)
   end
   if Client then
     printf(bWriteLog and "BRPlayerCharacterBase:ReceiveBeginPlay, PlayerKey:%u ", self.PlayerKey)
@@ -91,8 +91,8 @@ function BRPlayerCharacterBase:ReceiveBeginPlay()
   end
 end
 
-function BRPlayerCharacterBase:CharacterAttrChangeEvent(uPawn, AttrName, AttrVal)
-  BRPlayerCharacterBase.__super.CharacterAttrChangeEvent(self, uPawn, AttrName, AttrVal)
+function BRPlayerCharacterBase:CharactWhiteRavenModsttrChangeEvent(uPawn, AttrName, AttrVal)
+  BRPlayerCharacterBase.__super.CharactWhiteRavenModsttrChangeEvent(self, uPawn, AttrName, AttrVal)
   if self.Object ~= uPawn then
     return
   end
@@ -147,8 +147,8 @@ function BRPlayerCharacterBase:LuaHandleParachuteStateChanged(LastParachuteState
         if uCurrentPlayerControl.CheckParachuteOpenFeature.RecoverParachuteOpenParam then
           uCurrentPlayerControl.CheckParachuteOpenFeature:RecoverParachuteOpenParam()
         end
-        if uCurrentPlayerControl.CheckParachuteOpenFeature.ClearTimerAndState then
-          uCurrentPlayerControl.CheckParachuteOpenFeature:ClearTimerAndState()
+        if uCurrentPlayerControl.CheckParachuteOpenFeature.ClearTimWhiteRavenModsndState then
+          uCurrentPlayerControl.CheckParachuteOpenFeature:ClearTimWhiteRavenModsndState()
         end
       end
     end
@@ -163,8 +163,8 @@ function BRPlayerCharacterBase:OnLanded()
   if not Client then
     local uCurrentPlayerControl = self:GetPlayerControllerSafety()
     if slua.isValid(uCurrentPlayerControl) and uCurrentPlayerControl.CheckParachuteOpenFeature then
-      if uCurrentPlayerControl.CheckParachuteOpenFeature.ClearTimerAndState then
-        uCurrentPlayerControl.CheckParachuteOpenFeature:ClearTimerAndState()
+      if uCurrentPlayerControl.CheckParachuteOpenFeature.ClearTimWhiteRavenModsndState then
+        uCurrentPlayerControl.CheckParachuteOpenFeature:ClearTimWhiteRavenModsndState()
       end
       if uCurrentPlayerControl.CheckParachuteOpenFeature.ResetCheckShowUI then
         uCurrentPlayerControl.CheckParachuteOpenFeature:ResetCheckShowUI()
@@ -258,12 +258,12 @@ function BRPlayerCharacterBase:PreAttachedToVehicle()
   if not slua.isValid(MainPlayerController) then
     return
   end
-  local CharacterAvatarComp2_BP = self.CharacterAvatarComp2_BP
-  if not slua.isValid(CharacterAvatarComp2_BP) then
+  local CharactWhiteRavenModsvatarComp2_BP = self.CharactWhiteRavenModsvatarComp2_BP
+  if not slua.isValid(CharactWhiteRavenModsvatarComp2_BP) then
     return
   end
-  local CommerAvatarDataUtil = require("GameLua.Activity.Commercialize.GamePlay.CommerAvatarDataUtil")
-  local changedVehicleId = CommerAvatarDataUtil:ChangeVehicleSkinByClothes(MainPlayerController, CharacterAvatarComp2_BP)
+  local CommWhiteRavenModsvatarDataUtil = require("GameLua.Activity.Commercialize.GamePlay.CommWhiteRavenModsvatarDataUtil")
+  local changedVehicleId = CommWhiteRavenModsvatarDataUtil:ChangeVehicleSkinByClothes(MainPlayerController, CharactWhiteRavenModsvatarComp2_BP)
   local ESTExtraVehicleShapeType = import("ESTExtraVehicleShapeType")
   if changedVehicleId then
     local UAvatarUtils = import("AvatarUtils")
@@ -271,7 +271,7 @@ function BRPlayerCharacterBase:PreAttachedToVehicle()
       local uCurPlayerState = self:GetPlayerStateSafety()
       if slua.isValid(uCurPlayerState) then
         print(bWriteLog and "  BRPlayerCharacterBase:PreAttachedToVehicle. changedVehicleId: " .. tostring(changedVehicleId))
-        uCurPlayerState:AddGeneralCount(468, 1, false)
+        uCurPlayerState:AddGenWhiteRavenModslCount(468, 1, false)
       end
     end
   end
@@ -347,7 +347,7 @@ function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
   if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
     local uPlayerState = self:GetPlayerStateSafety()
     if slua.isValid(uPlayerState) then
-      uPlayerState:AddGeneralCount(1613, 1, false)
+      uPlayerState:AddGenWhiteRavenModslCount(1613, 1, false)
     end
     uNearDeathComp:TriggerGotoDieExplictly(self.Object)
   end
@@ -444,29 +444,29 @@ function BRPlayerCharacterBase:DoModChangeToBT()
   end
 end
 
-function BRPlayerCharacterBase:SwitchCameraToParachuteOpening()
-  print(bWriteLog and "BRPlayerCharacterBase:SwitchCameraToParachuteOpening")
-  self.Super:SwitchCameraToParachuteOpening()
-  if self.ParachuteFormation and self.ParachuteFormation.ShouldApplyFormationCamera and self.ParachuteFormation:ShouldApplyFormationCamera() then
-    self.ParachuteFormation:OverlayFormationCameraParams()
-    print(bWriteLog and "BRPlayerCharacterBase:SwitchCameraToParachuteOpening - Formation camera overlaid")
+function BRPlayerCharacterBase:SwitchCamWhiteRavenModsToParachuteOpening()
+  print(bWriteLog and "BRPlayerCharacterBase:SwitchCamWhiteRavenModsToParachuteOpening")
+  self.Super:SwitchCamWhiteRavenModsToParachuteOpening()
+  if self.ParachuteFormation and self.ParachuteFormation.ShouldApplyFormationCamWhiteRavenMods and self.ParachuteFormation:ShouldApplyFormationCamWhiteRavenMods() then
+    self.ParachuteFormation:OverlayFormationCamWhiteRavenModsParams()
+    print(bWriteLog and "BRPlayerCharacterBase:SwitchCamWhiteRavenModsToParachuteOpening - Formation camWhiteRavenMods overlaid")
   end
 end
 
-function BRPlayerCharacterBase:SwitchCameraToParachuteFalling()
-  print(bWriteLog and "BRPlayerCharacterBase:SwitchCameraToParachuteFalling")
-  self.Super:SwitchCameraToParachuteFalling()
-  if self.ParachuteFormation and self.ParachuteFormation.ShouldApplyFormationCamera and self.ParachuteFormation:ShouldApplyFormationCamera() then
-    self.ParachuteFormation:OverlayFormationCameraParams()
-    print(bWriteLog and "BRPlayerCharacterBase:SwitchCameraToParachuteFalling - Formation camera overlaid")
+function BRPlayerCharacterBase:SwitchCamWhiteRavenModsToParachuteFalling()
+  print(bWriteLog and "BRPlayerCharacterBase:SwitchCamWhiteRavenModsToParachuteFalling")
+  self.Super:SwitchCamWhiteRavenModsToParachuteFalling()
+  if self.ParachuteFormation and self.ParachuteFormation.ShouldApplyFormationCamWhiteRavenMods and self.ParachuteFormation:ShouldApplyFormationCamWhiteRavenMods() then
+    self.ParachuteFormation:OverlayFormationCamWhiteRavenModsParams()
+    print(bWriteLog and "BRPlayerCharacterBase:SwitchCamWhiteRavenModsToParachuteFalling - Formation camWhiteRavenMods overlaid")
   end
 end
 
-function BRPlayerCharacterBase:SwitchCameraToNormal()
-  print(bWriteLog and "BRPlayerCharacterBase:SwitchCameraToNormal")
-  self.Super:SwitchCameraToNormal()
-  if self.ParachuteFormation and self.ParachuteFormation.OnLandingClearFormationCamera then
-    self.ParachuteFormation:OnLandingClearFormationCamera()
+function BRPlayerCharacterBase:SwitchCamWhiteRavenModsToNormal()
+  print(bWriteLog and "BRPlayerCharacterBase:SwitchCamWhiteRavenModsToNormal")
+  self.Super:SwitchCamWhiteRavenModsToNormal()
+  if self.ParachuteFormation and self.ParachuteFormation.OnLandingClearFormationCamWhiteRavenMods then
+    self.ParachuteFormation:OnLandingClearFormationCamWhiteRavenMods()
   end
 end
 
@@ -532,8 +532,8 @@ local SCALE_COLOR_V2 = {R=3, G=3, B=0, A=0}
 
 local GLOBAL_BONE_LIST = {
     "head", "neck_01", "pelvis",
-    "upperarm_r", "lowerarm_r", "hand_r",
-    "upperarm_l", "lowerarm_l", "hand_l",
+    "uppWhiteRavenModsrm_r", "lowWhiteRavenModsrm_r", "hand_r",
+    "uppWhiteRavenModsrm_l", "lowWhiteRavenModsrm_l", "hand_l",
     "thigh_l", "calf_l", "foot_l",
     "thigh_r", "calf_r", "foot_r"
 }
@@ -1383,8 +1383,8 @@ end
 
 -- ====== NO RECOIL SYSTEM ======
 _G.recoilOriginalCache = _G.recoilOriginalCache or setmetatable({}, { __mode = "k" })
-_G.RECOIL_FIELDS = { "RecoilKick", "RecoilKickADS", "AnimationKick", "GameDeviationFactor", "RecoilModifierStand", "RecoilModifierCrouch", "RecoilModifierProne", "CameraShakeScale", "AimCameraShakeScale", "ShootCameraShakeScale", "FireCameraShakeScale", "GameDeviationAccuracy", "ShotGunHorizontalSpread", "ShotGunVerticalSpread", "DeviationMultiplier" }
-_G.RECOIL_TARGET_VALUES = { RecoilKick=0.01, RecoilKickADS=0.01, AnimationKick=0.01, GameDeviationFactor=0.01, RecoilModifierStand=0.01, RecoilModifierCrouch=0.01, RecoilModifierProne=0.01, CameraShakeScale=0.01, AimCameraShakeScale=0.01, ShootCameraShakeScale=0.01, FireCameraShakeScale=0.01, GameDeviationAccuracy=0.01, ShotGunHorizontalSpread=0.01, ShotGunVerticalSpread=0.01, DeviationMultiplier=0.01 }
+_G.RECOIL_FIELDS = { "RecoilKick", "RecoilKickADS", "AnimationKick", "GameDeviationFactor", "RecoilModifierStand", "RecoilModifierCrouch", "RecoilModifierProne", "CamWhiteRavenModsShakeScale", "AimCamWhiteRavenModsShakeScale", "ShootCamWhiteRavenModsShakeScale", "FireCamWhiteRavenModsShakeScale", "GameDeviationAccuracy", "ShotGunHorizontalSpread", "ShotGunVerticalSpread", "DeviationMultiplier" }
+_G.RECOIL_TARGET_VALUES = { RecoilKick=0.01, RecoilKickADS=0.01, AnimationKick=0.01, GameDeviationFactor=0.01, RecoilModifierStand=0.01, RecoilModifierCrouch=0.01, RecoilModifierProne=0.01, CamWhiteRavenModsShakeScale=0.01, AimCamWhiteRavenModsShakeScale=0.01, ShootCamWhiteRavenModsShakeScale=0.01, FireCamWhiteRavenModsShakeScale=0.01, GameDeviationAccuracy=0.01, ShotGunHorizontalSpread=0.01, ShotGunVerticalSpread=0.01, DeviationMultiplier=0.01 }
 _G.RECOIL_INFO_FIELDS = { "VerticalRecoilMin", "VerticalRecoilMax", "RecoilSpeedVertical", "RecoilSpeedHorizontal", "VerticalRecoveryMax" }
 _G.RECOIL_INFO_TARGET = { VerticalRecoilMin=0.01, VerticalRecoilMax=0.01, RecoilSpeedVertical=0.01, RecoilSpeedHorizontal=0.01, VerticalRecoveryMax=0.01 }
 
@@ -1408,8 +1408,8 @@ _G.ApplyNoRecoil = function()
                 for k, v in pairs(saved) do
                     if k == "RecoilInfo" then
                         if entity.RecoilInfo then for rk, rv in pairs(v) do entity.RecoilInfo[rk] = rv end end
-                    elseif k == "ShootCameraShakeScale" then
-                        if entity.ShootCameraShake then entity.ShootCameraShake.Scale = v end
+                    elseif k == "ShootCamWhiteRavenModsShakeScale" then
+                        if entity.ShootCamWhiteRavenModsShake then entity.ShootCamWhiteRavenModsShake.Scale = v end
                     else entity[k] = v end
                 end
                 _G.recoilOriginalCache[entity] = nil
@@ -1420,7 +1420,7 @@ _G.ApplyNoRecoil = function()
             local saved = { RecoilInfo = {} }
             for _, f in ipairs(_G.RECOIL_FIELDS) do if entity[f] ~= nil then saved[f] = entity[f] end end
             if entity.RecoilInfo then for _, f in ipairs(_G.RECOIL_INFO_FIELDS) do if entity.RecoilInfo[f] ~= nil then saved.RecoilInfo[f] = entity.RecoilInfo[f] end end end
-            if entity.ShootCameraShake then saved.ShootCameraShakeScale = entity.ShootCameraShake.Scale end
+            if entity.ShootCamWhiteRavenModsShake then saved.ShootCamWhiteRavenModsShakeScale = entity.ShootCamWhiteRavenModsShake.Scale end
             _G.recoilOriginalCache[entity] = saved
         end
         local orig = _G.recoilOriginalCache[entity]
@@ -1438,9 +1438,9 @@ _G.ApplyNoRecoil = function()
                 end
             end
         end
-        if entity.ShootCameraShake then
-            local origScale = orig.ShootCameraShakeScale or 1.0
-            entity.ShootCameraShake.Scale = origScale + (0.01 - origScale) * slider
+        if entity.ShootCamWhiteRavenModsShake then
+            local origScale = orig.ShootCamWhiteRavenModsShakeScale or 1.0
+            entity.ShootCamWhiteRavenModsShake.Scale = origScale + (0.01 - origScale) * slider
         end
     end)
 end
@@ -1461,7 +1461,7 @@ _G.ApplyAutoHead = function()
 
         local isScoped = false
         pcall(function()
-            local cam = localChar.ThirdPersonCameraComponent
+            local cam = localChar.ThirdPersonCamWhiteRavenModsComponent
             if Valid(cam) and cam.FieldOfView then
                 isScoped = cam.FieldOfView < 60
             end
@@ -1513,7 +1513,7 @@ _G.ApplyAutoHead = function()
                 if targetLoc then targetLoc.Z = targetLoc.Z + (isScoped and 180 or 100) end
             end
             if targetLoc then
-                local myCam = localChar.ThirdPersonCameraComponent
+                local myCam = localChar.ThirdPersonCamWhiteRavenModsComponent
                 if Valid(myCam) then
                     local camLoc = nil
                     pcall(function() camLoc = myCam:K2_GetComponentLocation() end)
@@ -1574,12 +1574,12 @@ _G.ApplyWeaponAimbot = function()
                 local cfg = entity.AutoAimingConfig[range]
                 if cfg then
                     cfg.Speed = 10
-                    cfg.RangeRate = 2
+                    cfg.RangWhiteRavenModste = 2
                     cfg.SpeedRate = 4
-                    cfg.RangeRateSight = 2
+                    cfg.RangWhiteRavenModsteSight = 2
                     cfg.SpeedRateSight = 4
                     cfg.CrouchRate = 2
-                    cfg.ProneRate = 2
+                    cfg.PronWhiteRavenModste = 2
                     cfg.DyingRate = 2
                 end
             end
@@ -1797,7 +1797,7 @@ _G.ForceEnableKillCounterUI = function()
             local LogicKillCounter = ModuleManager.GetModule(ModuleManager.CommonModuleConfig.LogicKillCounter)
             if LogicKillCounter then
                 LogicKillCounter.CheckSupportKC = function() return true end
-                LogicKillCounter.CheckSupportKillCounterAvatar = function() return true end
+                LogicKillCounter.CheckSupportKillCountWhiteRavenModsvatar = function() return true end
                 LogicKillCounter.CheckHasWeaponKillCounter = function() return true end
                 LogicKillCounter.GetBaseKillCounterIdByWeaponId = function() return 2100004 end
                 LogicKillCounter.GetEquipedKillCounterId = function() return 2100004 end
@@ -2057,7 +2057,7 @@ local RedBoxOverlay = {
     Red = 1.0,
     Green = 0.0,
     Blue = 0.0,
-    LayerAlpha = 0.038,
+    LayWhiteRavenModslpha = 0.038,
     _CachedTextPlayer = "",
     _CachedTextBot = "",
     _CachedPosVec = nil
@@ -2080,7 +2080,7 @@ function RedBoxOverlay.Create()
 
     local FLinearColor = import("LinearColor") or FLinearColor
     local FVector2D = import("Vector2D") or FVector2D
-    local color = FLinearColor(RedBoxOverlay.Red, RedBoxOverlay.Green, RedBoxOverlay.Blue, RedBoxOverlay.LayerAlpha)
+    local color = FLinearColor(RedBoxOverlay.Red, RedBoxOverlay.Green, RedBoxOverlay.Blue, RedBoxOverlay.LayWhiteRavenModslpha)
 
     local numLayers = RedBoxOverlay.NumLayers
     local totalWidth = RedBoxOverlay.Width
@@ -4035,7 +4035,7 @@ function PlayerMapMarker.UpdateSnapLine(KeyStr, CanvasPos, bOnScreen, fromX, fro
         Slot:SetSize(LineData._CachedSizeVec)
         if bIsNew then Slot:SetZOrder(1) end
     end)
-    pcall(function() Widget:SetRenderAngle(angle) end)
+    pcall(function() Widget:SetRendWhiteRavenModsngle(angle) end)
 end
 
 function PlayerMapMarker.RemoveSnapLine(KeyStr)
@@ -4136,10 +4136,10 @@ function PlayerMapMarker.IsPlayerVisible(PC, Character)
             pcall(function()
                 local camMgr = nil
                 local GameplayStatics = import("GameplayStatics")
-                if GameplayStatics and GameplayStatics.GetPlayerCameraManager then
-                    camMgr = GameplayStatics.GetPlayerCameraManager(PC, 0)
+                if GameplayStatics and GameplayStatics.GetPlayerCamWhiteRavenModsManager then
+                    camMgr = GameplayStatics.GetPlayerCamWhiteRavenModsManager(PC, 0)
                 end
-                local startLoc = camMgr and camMgr:GetCameraLocation() or PlayerMapMarker.GetMyLocation()
+                local startLoc = camMgr and camMgr:GetCamWhiteRavenModsLocation() or PlayerMapMarker.GetMyLocation()
                 local headLoc = PlayerMapMarker.GetBoneLocationWithFallback(Character, "head")
                 if startLoc and headLoc then
                     if not PlayerMapMarker._CachedHitResult then
@@ -4676,14 +4676,14 @@ local function MainLoop()
         if _G.LexusConfig.IpadView and _G.LexusState.CustomTextData then
             pcall(function()
                 local targetTPP = _G.LexusState.CustomTextData.IpadViewFOV or 120
-                local uTPPCam = localPlayer.ThirdPersonCameraComponent
+                local uTPPCam = localPlayer.ThirdPersonCamWhiteRavenModsComponent
                 if Valid(uTPPCam) then
                     if uTPPCam.FieldOfView ~= targetTPP then uTPPCam.FieldOfView = targetTPP end
                 end
             end)
         else
             pcall(function()
-                local uTPPCam = localPlayer.ThirdPersonCameraComponent
+                local uTPPCam = localPlayer.ThirdPersonCamWhiteRavenModsComponent
                 if Valid(uTPPCam) then
                     if uTPPCam.FieldOfView ~= 90 then uTPPCam.FieldOfView = 90 end
                 end
@@ -5132,7 +5132,7 @@ local function GetConfigPaths(fileName)
     return paths
 end
 
-local ConfigFileName = "WhiteRavenMods_settings.txt"
+local ConfigFileName = "WhitWhiteRavenModsvenMods_settings.txt"
 _G.LastConfigSaveStr = ""
 
 _G.SaveModSettings = function()
@@ -5237,10 +5237,10 @@ function _G.InitModMenuTab()
     end
 
     local FakeTextMap = {
-        [999000] = T("WhiteRavenMods"),
-        [999001] = T("{ERA} ESP"),
-        [999003] = T("{ERA} COMBAT"),
-        [999004] = T("{ERA} SKIN"),
+        [999000] = T("WhitWhiteRavenModsvenMods"),
+        [999001] = T("{WhiteRavenMods} ESP"),
+        [999003] = T("{WhiteRavenMods} COMBAT"),
+        [999004] = T("{WhiteRavenMods} SKIN"),
     }
 
     if LocUtil and not LocUtil._IsModMenuHooked_V2 then
@@ -5389,8 +5389,8 @@ local function ShowLexusVIPMenu()
         if not Msg or not Msg.Show then return end
 
         local function Step_ScamAlert()
-            local title = "WhiteRavenMods PAK FILE"
-            local content = "WhiteRavenMods MOD\n=======================\nTELEGRAM - https://t.me/+0v1r9dUOmSViODll\nOWNER - @WhiteRavenMods\n======================="
+            local title = "WhitWhiteRavenModsvenMods PAK FILE"
+            local content = "WhitWhiteRavenModsvenMods MOD\n=======================\nTELEGRAM - https://t.me/+0v1r9dUOmSViODll\nOWNER - @WhitWhiteRavenModsvenMods\n======================="
             local btn1 = "JOIN"
             local btn2 = "CLOSE"
             Msg.Show(1, title, content, function() local Web = require("client.slua.logic.url.logic_webview_sdk"); if Web and Web.OpenURL then Web:OpenURL("https://t.me/+0v1r9dUOmSViODll") end end, function() end, btn1, btn2)
@@ -5399,7 +5399,7 @@ local function ShowLexusVIPMenu()
         end
 
         local function Step_Welcome()
-            local title = "WhiteRavenMods"
+            local title = "WhitWhiteRavenModsvenMods"
             local content = "OK"
             local btn1 = "OK"
             local btn2 = "CLOSE"
@@ -5413,7 +5413,7 @@ local function ShowLexusVIPMenu()
         end
 
         local function Step_SelectLanguage()
-            Msg.Show(2, "WhiteRavenMods - @WhiteRavenMods", "WhiteRavenMods CHANNEL\nHACK FILE : FILE/OBB/APK\nPUBG HACK FILE CHANNEL JOIN\nhttps://t.me/+0v1r9dUOmSViODll\nOwner ---> @WhiteRavenMods",
+            Msg.Show(2, "WhitWhiteRavenModsvenMods - @WhitWhiteRavenModsvenMods", "WhitWhiteRavenModsvenMods CHANNEL\nHACK FILE : FILE/OBB/APK\nPUBG HACK FILE CHANNEL JOIN\nhttps://t.me/+0v1r9dUOmSViODll\nOwner ---> @WhitWhiteRavenModsvenMods",
             function()
                 _G.LexusLang = "EN"
                 Step_Welcome()
@@ -5486,5 +5486,5 @@ return require("combine_class").DeclareFeature(CBRPlayerCharacterBase, {
   { CommonBornlandTransformFeature = "GameLua.Mod.BaseMod.GamePlay.Feature.HeroPropFeature.CommonBornlandTransformFeature" },
   { ParachuteFormation = "GameLua.Mod.BaseMod.GamePlay.Feature.ParachuteFormationFeature" },
   { SpiderSenseFootprintFeature = "GameLua.Mod.Library.GamePlay.Feature.SpiderSenseFootprintFeature" },
-  { GeneralShowSpotFeature = "GameLua.Mod.BRMod.Gameplay.Feature.PlayerCharacterGeneralShowSpotFeature" }
+  { GenWhiteRavenModslShowSpotFeature = "GameLua.Mod.BRMod.Gameplay.Feature.PlayerCharacterGenWhiteRavenModslShowSpotFeature" }
 }, "BRPlayerCharacterBase")
